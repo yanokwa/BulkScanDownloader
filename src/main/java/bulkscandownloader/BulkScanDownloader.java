@@ -18,7 +18,7 @@ import javax.xml.rpc.ServiceException;
  */
 public class BulkScanDownloader {
 
-    public static final boolean DEBUG_BUILD = false;
+    public static final boolean DEBUG_BUILD = false; // Set to true when testing / developing
 
     private static final Logger logger = LogManager.getLogger(BulkScanDownloader.class);
 
