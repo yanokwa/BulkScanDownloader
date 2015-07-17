@@ -1,3 +1,5 @@
+![](https://travis-ci.org/delivered/BulkScanDownloader.svg?branch=master)
+
 # Command-line BulkScanDownloader
 
 Earth Class Mail provides a windows desktop application for downloading all of your mail scans in bulk, called BulkScanDownloader. This application is great for those with a few users and want to do one-time or semi-regular downloads/local backups up all your mail scans.
