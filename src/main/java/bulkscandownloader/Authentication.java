@@ -24,21 +24,21 @@ public class Authentication {
 
     private static final Logger logger = LogManager.getLogger(Authentication.class);
 
-	Client client;
-	private Session session;
-	private URL endpoint;
-	private ContentDownloadService downloadService;
-	
-	public Authentication(URL endpoint) {
-		this.endpoint = endpoint;
+    Client client;
+    private Session session;
+    private URL endpoint;
+    private ContentDownloadService downloadService;
+
+    public Authentication(URL endpoint) {
+        this.endpoint = endpoint;
         this.client = ClientBuilder.newClient();
-	}
+    }
 
-	public void signIn(String username, String password) throws Exception {
-		Entity payload = Entity.json("{ \"ClientType\": 6,  \"Password\": \"" + password + "\", \"UserName\": \"" + username + "\"}");
-		Response response = client.target(endpoint.toString()).request(MediaType.APPLICATION_JSON_TYPE).post(payload);
+    public void signIn(String username, String password) throws Exception {
+        Entity payload = Entity.json("{ \"ClientType\": 6,  \"Password\": \"" + password + "\", \"UserName\": \"" + username + "\"}");
+        Response response = client.target(endpoint.toString()).request(MediaType.APPLICATION_JSON_TYPE).post(payload);
 
-		String res = response.readEntity(String.class);
+        String res = response.readEntity(String.class);
 
         try {
             JSONAuthSession jsonSession = new ObjectMapper().readValue(res, JSONAuthSession.class);
@@ -51,44 +51,44 @@ public class Authentication {
             logger.error(fault.getMessage());
             throw new Exception("Unable to sign in");
         }
-	}
-	
-	/*
-	 * The SOAP Headers need to contain the following session information to be authenticated
-	 * 
-	 * <IrisSession xmlns="uri:iris" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
-	 *  <IrisSession>
-	 *    <SessionID>
-	 *      <ID>633dde76-a22a-43b1-a904-c99a8fe09945</ID>
-	 *      <SessionType>FrontSession</SessionType>
+    }
+
+    /*
+     * The SOAP Headers need to contain the following session information to be authenticated
+     *
+     * <IrisSession xmlns="uri:iris" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+     *  <IrisSession>
+     *    <SessionID>
+     *      <ID>633dde76-a22a-43b1-a904-c99a8fe09945</ID>
+     *      <SessionType>FrontSession</SessionType>
      *    </SessionID>
      *   </IrisSession>
-	 * </IrisSession>
-	 */
-	public SOAPHeaderElement getSoapSessionHeader() throws SOAPException {
-		SOAPHeaderElement topSession = new SOAPHeaderElement("uri:iris","IrisSession");
-		SOAPHeaderElement session = new SOAPHeaderElement("uri:iris","IrisSession");
-		SOAPHeaderElement sessionId = new SOAPHeaderElement("uri:iris","SessionID");
-		SOAPHeaderElement id = new SOAPHeaderElement("uri:iris","ID",this.session.getSessionID());
-		SOAPHeaderElement sessionType = new SOAPHeaderElement("uri:iris","SessionType", this.session.getSessionType());
-		sessionId.addChild(id);
-		sessionId.addChild(sessionType);
-		session.addChild(sessionId);
-		topSession.addChild(session);
-		
-		return topSession;
-	}
-	
-	public Session getSession() {
-		return this.session;
-	}
-	
-	public ContentDownloadService getDownloadService(URL endpoint) throws ServiceException {
-		if (this.downloadService == null) {
-			ContentDownloadServiceImplLocator wsLocator = new ContentDownloadServiceImplLocator();
-			this.downloadService = wsLocator.getBasicHttpBinding_ContentDownloadService(endpoint);
-		}
-		
-		return this.downloadService;
-	}
+     * </IrisSession>
+     */
+    public SOAPHeaderElement getSoapSessionHeader() throws SOAPException {
+        SOAPHeaderElement topSession = new SOAPHeaderElement("uri:iris", "IrisSession");
+        SOAPHeaderElement session = new SOAPHeaderElement("uri:iris", "IrisSession");
+        SOAPHeaderElement sessionId = new SOAPHeaderElement("uri:iris", "SessionID");
+        SOAPHeaderElement id = new SOAPHeaderElement("uri:iris", "ID", this.session.getSessionID());
+        SOAPHeaderElement sessionType = new SOAPHeaderElement("uri:iris", "SessionType", this.session.getSessionType());
+        sessionId.addChild(id);
+        sessionId.addChild(sessionType);
+        session.addChild(sessionId);
+        topSession.addChild(session);
+
+        return topSession;
+    }
+
+    public Session getSession() {
+        return this.session;
+    }
+
+    public ContentDownloadService getDownloadService(URL endpoint) throws ServiceException {
+        if (this.downloadService == null) {
+            ContentDownloadServiceImplLocator wsLocator = new ContentDownloadServiceImplLocator();
+            this.downloadService = wsLocator.getBasicHttpBinding_ContentDownloadService(endpoint);
+        }
+
+        return this.downloadService;
+    }
 }

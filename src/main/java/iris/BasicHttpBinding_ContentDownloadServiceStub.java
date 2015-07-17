@@ -498,7 +498,7 @@ public class BasicHttpBinding_ContentDownloadServiceStub extends org.apache.axis
 }
     }
 
-    public iris.FetchDownloadableContentResponse fetchDownloadableContent(iris.FetchDownloadableContentRequest parameters) throws java.rmi.RemoteException, iris.ContentDownloadImageStoreFault {
+    public iris.FetchDownloadableContentResponse fetchDownloadableContent(iris.FetchDownloadableContentRequest parameters) throws java.rmi.RemoteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }

@@ -4,29 +4,29 @@ import org.codehaus.jackson.annotate.JsonProperty;
 
 public class Session {
 
-	@JsonProperty("ID")
-	private String sessionID;
-	@JsonProperty("SessionType")
-	private int sessionType;
+    @JsonProperty("ID")
+    private String sessionID;
+    @JsonProperty("SessionType")
+    private int sessionType;
 
-	public Session() {
-	}
+    public Session() {
+    }
 
-	public String getSessionID() {
-		return sessionID;
-	}
+    public String getSessionID() {
+        return sessionID;
+    }
 
-	public void setSessionID(String sessionID) {
+    public void setSessionID(String sessionID) {
         this.sessionID = sessionID;
-	}
+    }
 
-	public String getSessionType() {
+    public String getSessionType() {
         if (sessionType == 1)
             return "FrontSession";
-		return String.format("%d", sessionType);
-	}
+        return String.format("%d", sessionType);
+    }
 
-	public void setSessionType(int sessionType) {
-		this.sessionType = sessionType;
-	}
+    public void setSessionType(int sessionType) {
+        this.sessionType = sessionType;
+    }
 }

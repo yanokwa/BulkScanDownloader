@@ -1,15 +1,15 @@
 package bulkscandownloader;
 
 public class User {
-	private boolean active;
-	private String username;
-	private String password;
+    private boolean active;
+    private String username;
+    private String password;
     private boolean allEnvelopeSides;
     private boolean contentScans;
     private boolean envelopeImages;
 
-	public User() {
-	}
+    public User() {
+    }
 
     public boolean isActive() {
         return active;

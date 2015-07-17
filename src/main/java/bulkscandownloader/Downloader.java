@@ -29,34 +29,34 @@ public class Downloader {
     private static final Logger logger = LogManager.getLogger(Downloader.class);
 
     private Configuration config;
-	private Authentication authClient;
-	private ContentDownloadService downloadService;
+    private Authentication authClient;
+    private ContentDownloadService downloadService;
 
-	public Downloader(Configuration config) throws ServiceException {
-	
-		this.authClient = new Authentication(config.getFrontSessionURL());
-		this.downloadService = authClient.getDownloadService(config.getDownloadServiceURL());
+    public Downloader(Configuration config) throws ServiceException {
+
+        this.authClient = new Authentication(config.getFrontSessionURL());
+        this.downloadService = authClient.getDownloadService(config.getDownloadServiceURL());
         this.config = config;
-	}
-	
-	public void run() throws InterruptedException {
-		while (true) {
+    }
+
+    public void run() throws InterruptedException {
+        while (true) {
             oneIteration();
             Thread.sleep(600000); // 10 minutes
         }
-	}
-	
-	public void oneIteration() {
-		
-		for (User user : config.getUsers()) {
+    }
+
+    public void oneIteration() {
+
+        for (User user : config.getUsers()) {
             if (!user.isActive())
                 continue;
 
             QueryDownloadableContentRequest downloadRequest = new QueryDownloadableContentRequest(
-                user.isAllEnvelopeSides(),
-                user.isContentScans(),
-                user.isEnvelopeImages(),
-                null);  // MailboxID, can be left at null to grab all mailboxes
+                    user.isAllEnvelopeSides(),
+                    user.isContentScans(),
+                    user.isEnvelopeImages(),
+                    null);  // MailboxID, can be left at null to grab all mailboxes
 
             try {
                 authClient.signIn(user.getUsername(), user.getPassword());
@@ -64,8 +64,8 @@ public class Downloader {
             } catch (Exception e) {
                 // If we can't sign in, proceed to next user
             }
-		}
-	}
+        }
+    }
 
     private void downloadItemsForUser(User user, QueryDownloadableContentRequest downloadRequest) {
         QueryDownloadableContentResponse qdcr = null;
@@ -136,7 +136,7 @@ public class Downloader {
         return qdcr;
     }
 
-	private void processPostDownloadAction(DownloadableContent content) {
+    private void processPostDownloadAction(DownloadableContent content) {
         try {
             if (content.getItemStatus() == PItemStatus.Active &&
                     (content.getOperation() == null ||
@@ -174,9 +174,9 @@ public class Downloader {
             logger.error("Unable to contact download service for post download action, no action will be taken.");
             logger.error(e);
         }
-	}
+    }
 
-	private AcknowledgeDownloadResponse acknowledgeDownload(DownloadableContent sc) {
+    private AcknowledgeDownloadResponse acknowledgeDownload(DownloadableContent sc) {
         if (BulkScanDownloader.DEBUG_BUILD) // Don't acknowledge for debug builds, we want to be able to re-run things
             return null;
 
@@ -188,49 +188,49 @@ public class Downloader {
             logger.error(e);
             response = null;
         }
-		return response;
-	}
+        return response;
+    }
 
-	private void processItem(User user, DownloadableContent itemToSave, int itemsRemaining) throws IOException {
-		String fileName = getFileName(user, itemToSave);
+    private void processItem(User user, DownloadableContent itemToSave, int itemsRemaining) throws IOException {
+        String fileName = getFileName(user, itemToSave);
         logger.info("File processing started: " + fileName);
 
         saveScannedContent(itemToSave, fileName);
 
         logger.info("File processing completed: " + fileName);
         logger.info("Items remaining: " + itemsRemaining);
-	}
+    }
 
-	private void saveScannedContent(DownloadableContent contentToRetrieve, String fileName) throws IOException {
-		File file = new File(fileName);
-		file.getParentFile().mkdirs();
-		file.createNewFile();
-		InputStream inputStream = fetchScannedContent(contentToRetrieve);
-		
-		OutputStream outputStream = new FileOutputStream(file);
-		
-		IOUtils.copy(inputStream, outputStream);
-		
-		inputStream.close();
-		outputStream.close();
-	}
+    private void saveScannedContent(DownloadableContent contentToRetrieve, String fileName) throws IOException {
+        File file = new File(fileName);
+        file.getParentFile().mkdirs();
+        file.createNewFile();
+        InputStream inputStream = fetchScannedContent(contentToRetrieve);
 
-	private InputStream fetchScannedContent(DownloadableContent contentToRetrieve) throws RemoteException {
-		
-		FetchDownloadableContentRequest fetchRequest = new FetchDownloadableContentRequest(contentToRetrieve);
-		URI url = downloadService.fetchDownloadableContent(fetchRequest).getUrl();
+        OutputStream outputStream = new FileOutputStream(file);
+
+        IOUtils.copy(inputStream, outputStream);
+
+        inputStream.close();
+        outputStream.close();
+    }
+
+    private InputStream fetchScannedContent(DownloadableContent contentToRetrieve) throws RemoteException {
+
+        FetchDownloadableContentRequest fetchRequest = new FetchDownloadableContentRequest(contentToRetrieve);
+        URI url = downloadService.fetchDownloadableContent(fetchRequest).getUrl();
 
         logger.info("Starting fetch of: " + url.toString());
 
-		Cookie cookie = new Cookie("AuthFront", authClient.getSession().getSessionID(), "/", url.getHost());
-		
-		Response dataResponse = this.authClient.client.target(url.toString()).request().cookie(cookie).get();
-		return dataResponse.readEntity(InputStream.class);
-	}
+        Cookie cookie = new Cookie("AuthFront", authClient.getSession().getSessionID(), "/", url.getHost());
 
-	private String getFileName(User user, DownloadableContent itemToSave) {
+        Response dataResponse = this.authClient.client.target(url.toString()).request().cookie(cookie).get();
+        return dataResponse.readEntity(InputStream.class);
+    }
+
+    private String getFileName(User user, DownloadableContent itemToSave) {
         String dir = config.getRootDir();
-        
+
         if (config.isUseFolders())
             dir = Paths.get(dir, user.getUsername(), itemToSave.getFolderName()).toString();
 
@@ -240,15 +240,15 @@ public class Downloader {
                 itemToSave.getLicensePlate().getID(),
                 enclosureToSave != null ? "-" + enclosureToSave.getSide().toString() : "",
                 itemToSave.getContentType() == FileStoreContentType.JPEG ? "JPG" : itemToSave.getContentType().toString()
-        		);
+        );
         return Paths.get(dir, fileName).toString();
-	}
+    }
 
-	private Integer sumOfLengthsOfLists(
-			ArrayDictionary[] queryResult) {
+    private Integer sumOfLengthsOfLists(
+            ArrayDictionary[] queryResult) {
         int sum = 0;
         for (ArrayDictionary content : queryResult) sum += content.getValue().length;
         return sum;
-	}
-	
+    }
+
 }

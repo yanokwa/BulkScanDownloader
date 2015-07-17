@@ -21,8 +21,8 @@ public class BulkScanDownloader {
     public static final boolean DEBUG_BUILD = false;
 
     private static final Logger logger = LogManager.getLogger(BulkScanDownloader.class);
-	
-	public static void main(String[] args) {
+
+    public static void main(String[] args) {
         logger.info("Starting BulkScanDownloader");
         // Read the configuration file "bulkscandownloader.json" from current working directory
         ObjectMapper mapper = new ObjectMapper();
@@ -54,5 +54,5 @@ public class BulkScanDownloader {
         } catch (InterruptedException e) {
             logger.info("Program interrupted, shutting down.");
         }
-	}
+    }
 }

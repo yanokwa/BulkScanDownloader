@@ -50,7 +50,7 @@ public class ContentDownloadServiceProxy implements iris.ContentDownloadService 
     return contentDownloadService.queryDownloadableContent(parameters);
   }
   
-  public iris.FetchDownloadableContentResponse fetchDownloadableContent(iris.FetchDownloadableContentRequest parameters) throws java.rmi.RemoteException, iris.ContentDownloadImageStoreFault{
+  public iris.FetchDownloadableContentResponse fetchDownloadableContent(iris.FetchDownloadableContentRequest parameters) throws java.rmi.RemoteException {
     if (contentDownloadService == null)
       _initContentDownloadServiceProxy();
     return contentDownloadService.fetchDownloadableContent(parameters);
