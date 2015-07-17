@@ -68,32 +68,32 @@ Application configuration is read from the `bulkscandownloader.json` file that s
 
 A sample configuration file can be found in the root directory of this repository. Here is what the configuration file should look like and an explanation of the provided configuration options:
 
-```json
+```
 {
-  // The directory which all downloads should be put into, 
+  // The directory which all downloads should be put into,
   // can be absolute or relative
-  "rootDir": "~/bulkscan", 
-  
+  "rootDir": "~/bulkscan",
+
   // The post download action wanted for mail pieces
   // 0 means no action is taken
   // 1 means to recycle the item
   // 2 means to shred the item
   "postDownloadAction": 0,
-  
+
   // Whether or not to use subfolders for the file downloads
   // if true, a subfolder structure like `rootDir/username/mailbox-name/file.jpg`
   // will be used
   "useFolders": true,
-  
+
   // The list of users that the application should download mail for
   "users": [
     {
     	"active": true,           // Don't download mail for this user if false
     	"username": "johndoe",    // Username
     	"password": "johndoex",   // Password
-    	"envelopeImages": true    // If envelope images should be downloaded
+    	"envelopeImages": true,   // If envelope images should be downloaded
     	"allEnvelopeSides": true, // If all (not just first) envelope sides should be downloaded
-    	"contentScans": true,     // If content scans should be downloaded
+    	"contentScans": true      // If content scans should be downloaded
     }
   ]
 }
