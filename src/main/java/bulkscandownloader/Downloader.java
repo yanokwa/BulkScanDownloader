@@ -62,6 +62,8 @@ public class Downloader {
                 authClient.signIn(user.getUsername(), user.getPassword());
                 downloadItemsForUser(user, downloadRequest);
             } catch (Exception e) {
+                logger.warn("Unable to sign in user: " + user.getUsername());
+                logger.warn(e);
                 // If we can't sign in, proceed to next user
             }
         }
@@ -75,6 +77,8 @@ public class Downloader {
             try {
                 qdcr = requestDownloadDance(user, downloadRequest);
             } catch (Exception e) {
+                logger.warn("Unable to create a download request for user: " + user.getUsername());
+                logger.warn("Proceeding to next user.");
                 break; // We can't make a download request for this user
             }
 
