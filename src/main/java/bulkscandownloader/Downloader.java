@@ -41,7 +41,9 @@ public class Downloader {
 
     public void run() throws InterruptedException {
         while (true) {
+            logger.info("Starting fetch iteration.");
             oneIteration();
+            logger.info("Ending fetch iteration, sleeping 10 minutes now.");
             Thread.sleep(600000); // 10 minutes
         }
     }
