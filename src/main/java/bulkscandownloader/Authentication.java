@@ -19,6 +19,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import iris.ContentDownloadService;
 import iris.ContentDownloadServiceImplLocator;
 import org.codehaus.jackson.map.exc.UnrecognizedPropertyException;
+import org.glassfish.jersey.client.ClientProperties;
 
 public class Authentication {
 
@@ -32,6 +33,8 @@ public class Authentication {
     public Authentication(URL endpoint) {
         this.endpoint = endpoint;
         this.client = ClientBuilder.newClient();
+        this.client.property(ClientProperties.CONNECT_TIMEOUT, 60*1000);
+        this.client.property(ClientProperties.READ_TIMEOUT, 60*1000);
     }
 
     public void signIn(String username, String password) throws Exception {
