@@ -121,9 +121,9 @@ public class Downloader {
                     processPostDownloadAction(scannedContentList[0]);
                 }
             }
-            if (totalJobCompletedCount > 0)
-                logger.info("Completed downloading for user: " + user.getUsername());
         }
+        if (totalJobCompletedCount > 0)
+            logger.info("Completed downloading for user: " + user.getUsername());
     }
 
     /*
