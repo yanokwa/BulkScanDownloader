@@ -22,7 +22,7 @@ The [`pom.xml`](https://github.com/delivered/BulkScanDownloader/blob/master/pom.
 
 Running
 
-	mvn package
+  mvn package
 
 should yield something like the following output
 
@@ -93,12 +93,12 @@ A sample configuration file can be found in the root directory of this repositor
   // The list of users that the application should download mail for
   "users": [
     {
-    	"active": true,           // Don't download mail for this user if false
-    	"username": "johndoe",    // Username
-    	"password": "johndoex",   // Password
-    	"envelopeImages": true,   // If envelope images should be downloaded
-    	"allEnvelopeSides": true, // If all (not just first) envelope sides should be downloaded
-    	"contentScans": true      // If content scans should be downloaded
+      "active": true,           // Don't download mail for this user if false
+      "username": "johndoe",    // Username
+      "password": "johndoex",   // Password
+      "envelopeImages": true,   // If envelope images should be downloaded
+      "allEnvelopeSides": true, // If all (not just first) envelope sides should be downloaded
+      "contentScans": true      // If content scans should be downloaded
     }
   ]
 }
@@ -108,7 +108,7 @@ A sample configuration file can be found in the root directory of this repositor
 
 Once you have your JAR file and your configuration file, running the program should be as easy as running
 
-	java -jar bulkscandownloader-0.0.1-jar-with-dependencies.jar
+  java -jar bulkscandownloader-0.0.1-jar-with-dependencies.jar
 
 from the same directory as your configuration file is.
 
@@ -119,6 +119,11 @@ If you wish to test this application, you should turn the [`DEBUG_BUILD`](https:
 ## A mention on the API
 
 I won't dig into the exact details of the API as that is more readily available in the code anyway. However, the Java client for the Content Download API in this project has been automatically generated from the accompanying `ContentDownloadService.wsdl` file.
+
+## Credits
+
+- [Fredrik Olsen](https://github.com/folsen)
+- [All Contributors](https://github.com/delivered/BulkScanDownloader/contributors)
 
 ## License
 
