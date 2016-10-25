@@ -9,12 +9,12 @@ public class Configuration {
     private String rootDir;
     private int postDownloadAction;
     private boolean useFolders;
+    private boolean daemonMode;
     private User[] users;
     private URL frontSessionURL;
     private URL downloadServiceURL;
 
-    public Configuration() {
-    }
+    public Configuration() {}
 
     public String getRootDir() {
         return rootDir;
@@ -38,6 +38,14 @@ public class Configuration {
 
     public void setUseFolders(boolean useFolders) {
         this.useFolders = useFolders;
+    }
+
+    public boolean isDaemonMode() {
+        return daemonMode;
+    }
+
+    public void setDaemonMode(boolean daemonMode) {
+        this.daemonMode = daemonMode;
     }
 
     public User[] getUsers() {
@@ -65,10 +73,11 @@ public class Configuration {
     }
 
     public String toString() {
-        return String.format("Config [rootDir=%s, postDownloadAction=%s, useFolders=%s, users=%s",
+        return String.format("Config [rootDir=%s, postDownloadAction=%s, useFolders=%s, daemonMode=%s, users=%s",
                 this.rootDir,
                 this.postDownloadAction,
                 this.useFolders,
+                this.daemonMode,
                 Arrays.toString(users));
     }
 

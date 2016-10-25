@@ -43,8 +43,12 @@ public class Downloader {
         while (true) {
             logger.info("Starting fetch iteration.");
             oneIteration();
-            logger.info("Ending fetch iteration, sleeping 10 minutes now.");
-            Thread.sleep(600000); // 10 minutes
+            if (config.isDaemonMode()) {
+                logger.info("Ending fetch iteration, sleeping 10 minutes now.");
+                Thread.sleep(600000); // 10 minutes
+            } else {
+                logger.info("Ending fetch iteration");
+            }
         }
     }
 
