@@ -87,8 +87,8 @@ A sample configuration file can be found in the root directory of this repositor
   // will be used
   "useFolders": true,
 
-  // Whether or not to run in daemon/service mode (continuously, every 10 minutes) or run once.
-  "daemonMode": true,
+  // Whether or not to run continuously (every 10 minutes) or run once.
+  "runContinuously": true,
 
   // The list of users that the application should download mail for
   "users": [
