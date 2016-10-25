@@ -22,11 +22,13 @@ The [`pom.xml`](https://github.com/delivered/BulkScanDownloader/blob/master/pom.
 
 Running
 
-  mvn package
+```bash
+$ mvn package
+```
 
 should yield something like the following output
 
-```
+```bash
 [INFO] Scanning for projects...
 [INFO]
 [INFO] Using the builder org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder with a thread count of 1
@@ -70,7 +72,7 @@ Application configuration is read from the `bulkscandownloader.json` file that s
 
 A sample configuration file can be found in the root directory of this repository. Here is what the configuration file should look like and an explanation of the provided configuration options:
 
-```
+```json
 {
   // The directory which all downloads should be put into,
   // can be absolute or relative
@@ -108,7 +110,9 @@ A sample configuration file can be found in the root directory of this repositor
 
 Once you have your JAR file and your configuration file, running the program should be as easy as running
 
-  java -jar bulkscandownloader-0.0.1-jar-with-dependencies.jar
+```bash
+$ java -jar bulkscandownloader-0.0.1-jar-with-dependencies.jar
+```
 
 from the same directory as your configuration file is.
 
