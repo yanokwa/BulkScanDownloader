@@ -5,18 +5,14 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.MalformedURLException;
 import java.nio.file.Paths;
-import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 import javax.ws.rs.core.Cookie;
 import javax.ws.rs.core.Response;
 import javax.xml.rpc.ServiceException;
-import javax.xml.soap.SOAPException;
 
 import org.apache.axis.types.URI;
-import org.apache.axis.types.URI.MalformedURIException;
 import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -40,11 +36,17 @@ public class Downloader {
     }
 
     public void run() throws InterruptedException {
-        while (true) {
+        if (config.isRunContinuously()) {
+            while (true) {
+                logger.info("Starting fetch iteration.");
+                oneIteration();
+                logger.info("Ending fetch iteration, sleeping 10 minutes now.");
+                Thread.sleep(600000); // 10 minutes
+            }
+        } else {
             logger.info("Starting fetch iteration.");
             oneIteration();
-            logger.info("Ending fetch iteration, sleeping 10 minutes now.");
-            Thread.sleep(600000); // 10 minutes
+            logger.info("Ending fetch iteration");
         }
     }
 
