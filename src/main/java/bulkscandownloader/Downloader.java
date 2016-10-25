@@ -40,15 +40,17 @@ public class Downloader {
     }
 
     public void run() throws InterruptedException {
-        while (true) {
-            logger.info("Starting fetch iteration.");
-            oneIteration();
-            if (config.isDaemonMode()) {
+        if (config.isDaemonMode()) {
+            while (true) {
+                logger.info("Starting fetch iteration.");
+                oneIteration();
                 logger.info("Ending fetch iteration, sleeping 10 minutes now.");
                 Thread.sleep(600000); // 10 minutes
-            } else {
-                logger.info("Ending fetch iteration");
             }
+        } else {
+            logger.info("Starting fetch iteration.");
+            oneIteration();
+            logger.info("Ending fetch iteration");
         }
     }
 
