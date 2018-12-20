@@ -71,7 +71,7 @@ activation            | 1.1.1   | For Java 11 support
 
 ## Configuration
 
-Application configuration is read from the `bulkscandownloader.json` file that should be located in the same directory as the application is run from (current working directory at time of application execution).
+Application configuration is read from a `bulkscandownloader.json` file that should be located in the same directory as the application is run from (current working directory at time of application execution). See `bulkscandownloader.json.example` for an example.
 
 A sample configuration file can be found in the root directory of this repository. Here is what the configuration file should look like and an explanation of the provided configuration options:
 
