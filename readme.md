@@ -64,7 +64,10 @@ commons-io            | 2.4     | Provides the IOUtils class used for stream pro
 log4j-api             | 2.3     | Log4j is used for logging
 log4j-core            | 2.3     | Log4j is used for logging
 mail                  | 1.4.7   | Added to suppress warning from axis that attachments are not supported without it, but attachments are not used
-
+jaxb-api              | 2.2.11  | For Java 11 support
+jaxb-core             | 2.2.11  | For Java 11 support
+jaxb-impl             | 2.2.11  | For Java 11 support
+activation            | 1.1.1   | For Java 11 support
 
 ## Configuration
 
@@ -72,7 +75,7 @@ Application configuration is read from the `bulkscandownloader.json` file that s
 
 A sample configuration file can be found in the root directory of this repository. Here is what the configuration file should look like and an explanation of the provided configuration options:
 
-```json
+```
 {
   // The directory which all downloads should be put into,
   // can be absolute or relative
